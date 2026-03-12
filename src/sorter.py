@@ -1,15 +1,17 @@
 import os
 import shutil
-import argparse
-import logging
-from validator import RecordValidator
+from tqdm import tqdm  # Add this import
+from src.validator import RecordValidator
 
-# Setup Logging for the "Audit Trail"
-logging.basicConfig(
-    filename='tdf_audit.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+def sort_records(source_dir, dest_dir):
+    validator = RecordValidator()
+    files = [f for f in os.listdir(source_dir) if os.path.isfile(os.path.join(source_dir, f))]
+    
+    print(f"Starting TDF Sort: Moving {len(files)} records...")
+
+    # Wrap the list with tqdm for a live progress bar
+    for filename in tqdm(files, desc="Processing Records", unit="file"):
+        file_path = os.path.join(source_dir, filename)
 
 class TDFSorter:
     def __init__(self, source_dir, archive_dir):
