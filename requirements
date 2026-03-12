@@ -1,0 +1,9 @@
+# --- Core Dependencies ---
+# (Note: os, re, shutil, and hashlib are built into Python's Standard Library)
+
+# --- Testing Framework ---
+pytest==8.1.1          # For running the unit tests in /tests
+
+# --- Utility & UI (Optional but recommended) ---
+tqdm==4.66.2           # Adds a progress bar for batch processing files
+colorama==0.4.6        # Provides color-coded terminal output (Green for success, Red for error)
