@@ -1,0 +1,25 @@
+import pytest
+from src.validator import RecordValidator
+
+@pytest.fixture
+def validator():
+    return RecordValidator()
+
+def test_valid_formats(validator):
+    # Test all the ways a 6-digit ID might appear
+    assert validator.is_valid_id("123456") is True
+    assert validator.is_valid_id("12-34-56") is True
+    assert validator.is_valid_id("12 34 56") is True
+
+def test_invalid_length(validator):
+    # Test IDs that are too short or too long
+    assert validator.is_valid_id("12345") is False
+    assert validator.is_valid_id("1234567") is False
+
+def test_non_numeric(validator):
+    # Test IDs containing letters or special characters (other than separators)
+    assert validator.is_valid_id("12A345") is False
+    assert validator.is_valid_id("12-34-XX") is False
+
+def test_empty_input(validator):
+    assert validator.is_valid_id("") is False
