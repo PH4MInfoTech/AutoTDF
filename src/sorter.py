@@ -1,17 +1,25 @@
-import os
-import shutil
-from tqdm import tqdm  # Add this import
-from src.validator import RecordValidator
+import logging
+
+# Configure logging to write to the file
+logging.basicConfig(
+    filename='tdf_audit.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 def sort_records(source_dir, dest_dir):
-    validator = RecordValidator()
-    files = [f for f in os.listdir(source_dir) if os.path.isfile(os.path.join(source_dir, f))]
+    # ... your setup code ...
     
-    print(f"Starting TDF Sort: Moving {len(files)} records...")
-
-    # Wrap the list with tqdm for a live progress bar
-    for filename in tqdm(files, desc="Processing Records", unit="file"):
-        file_path = os.path.join(source_dir, filename)
+    for filename in tqdm(files, desc="Processing Records"):
+        # Log the start of the attempt
+        logging.info(f"Attempting to process: {filename}")
+        
+        record_id = validator.extract_id(filename)
+        if record_id:
+            # logic to move file...
+            logging.info(f"SUCCESS: Moved {filename} to TDF {record_id}")
+        else:
+            logging.warning(f"SKIPPED: No valid 6-digit ID found in {filename}")
 
 class TDFSorter:
     def __init__(self, source_dir, archive_dir):
