@@ -1,4 +1,13 @@
+import sys
+import os
+
+# This tells the test to look one level up for the 'src' folder
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.validator import RecordValidator
 import pytest
+
+# ... rest of your testsimport pytest
 from src.validator import RecordValidator
 
 @pytest.fixture
