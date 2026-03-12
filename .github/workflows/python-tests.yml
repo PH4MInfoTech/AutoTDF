@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# This opts into Node.js 24 for all actions in this workflow
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -27,6 +26,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Tests
+    # PASTE THE DEBUG CODE HERE:
+    - name: Debug and Run Tests
       run: |
-        python3 -m pytest tests/test_validator.py
+        echo "--- Directory Structure ---"
+        ls -R
+        echo "--- Running Pytest ---"
+        python3 -m pytest
